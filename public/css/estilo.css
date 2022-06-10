@@ -1,0 +1,31 @@
+
+/* COR DOS ICONS DE MENU USUARIO */
+.fa-user, .fa-cogs, .fa-sign-out-alt{
+    color: #6d37a1 !important; 
+}
+
+/* BOTAO PRYMARY */
+.btn-primary{
+    background-color: #384ca5; 
+}
+.btn-primary:hover{
+    background-color: #384ca5; 
+}
+
+/* FORMULARIO DE REGISTRO - INICIO */
+
+@media (min-width: 1000px) { /* ESTIVER NO DESKTOP */
+    .desktop{
+        max-width: 40%;
+        box-shadow: 2px 2px 10px rgb(177 155 155 / 77%);
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 991px) { /* ESTIVER NO CELL */
+    #cell{
+      display: block;
+    }   
+}
+
+/* FORMULARIO DE REGISTRO - FIM */
