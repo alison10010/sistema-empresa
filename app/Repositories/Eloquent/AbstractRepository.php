@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use App\Models\Cargo;
 use App\Models\Setor;
@@ -18,13 +18,20 @@ class AbstractRepository{
 
     protected function resolveModel()
     {
-        return app($this->model); // RETORNA A CLASS
+        return app($this->model); // VERIFICA O VALOR DA VARIAVEL PROTECTED $MODEL
+    }
+
+    // LISTA DE TODOS
+    public function all()
+    {
+        $model = $this->model->all();
+        return $model;
     }
 
     // LISTA DE ATIVOS
     public function listAtivos()
     {
-        $modelAtivo = $this->model::where([['status', '=', 1]])->get();
+        $modelAtivo = $this->model->where([['status', '=', 1]])->get();
         return $modelAtivo;
     }
 

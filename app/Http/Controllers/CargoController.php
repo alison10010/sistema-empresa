@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // REGRAS DE VALIDACAO FORM
 
-use App\Repositories\CargoRepository;  // REGRAS
+use App\Repositories\Eloquent\CargoRepository;  // REGRAS DE NEGOCIOS
 
 use App\Models\Cargo;
 
-use App\Models\Setor; // USA A TABLE SETOR PARA RELACIONAR AO CARGO
-
 class CargoController extends Controller{
 
-    
     // METODO DE LISTAR
     public function gerenciar(CargoRepository $model)
     { 
@@ -31,7 +28,7 @@ class CargoController extends Controller{
     public function store(Request $request, CargoRepository $model)
     {
         $data = $request->all();
-        $setors = $model->store($data); // SALVA
+        $model->store($data); // SALVA
         return redirect()->route('cargo.gerenciar')->with('msg', 'Cargo criado com sucesso!');
     }
 

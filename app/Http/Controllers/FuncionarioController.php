@@ -4,119 +4,91 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Setor; // USA A TABLE SETOR PARA RELACIONAR AO SETOR
+use App\Models\Setor; // USA PARA RELACIONAR AO SETOR
 
-use App\Models\Cargo; // USA A TABLE SETOR PARA RELACIONAR AO CARGO
+use App\Models\Cargo; // USA PARA RELACIONAR AO CARGO
 
-use App\Models\Funcionario; // USA A TABLE SETOR PARA RELACIONAR AO FUNCIONARIO
+use App\Models\Funcionario;
+
+use App\Repositories\Eloquent\FuncionarioRepository; 
 
 class FuncionarioController extends Controller{
     
     // RETONA A PAGE DE CADASTRO
-    public function create(){ 
-
-        $setors = Setor::where([['status', '=', 1]])->orderBy('nome', 'ASC')->get(); // PEGA TODOS OS REGISTROS ATIVO DO BD DA TABELA SETOR
-
+    public function create(FuncionarioRepository $model)
+    { 
+        $setors = $model->setorAtivo();
         return view('/funcionario/cadastro',['setors' => $setors]); 
     } 
     
     // METODO DE LISTAR
-    public function gerenciar(){
-
-        $funcionarios = Funcionario::where([['status', '=', 1]])->get(); // PEGA TODOS OS REGISTROS ATIVO DO BD DA TABELA SETOR
-
+    public function gerenciar(FuncionarioRepository $model)
+    {
+        $funcionarios = $model->listAtivos();
         return view('/funcionario/gerenciar',['funcionarios' => $funcionarios]);
     }
 
-    // RETONA LISTA DE FUNCAO DE ACORDO COM O SETOR
-    public function funcao($id){
-        
+    // FUNCAO DE ACORDO COM O SETOR
+    public function funcao($id, FuncionarioRepository $model)
+    {
         $setor = request('id'); // PARAMETRO URL
-
-        $listCargo = Cargo::where([['setor_id', '=', $setor]])
-                            ->select('id','nome')
-                            ->orderBy('nome', 'ASC')->get(); // PEGA TODOS OS REGISTROS ATIVO DO BD DA TABELA CARGO
-
-        return json_encode($listCargo);
- 
-    }
-
-    // RETONA DETALHES DE FUNCIONARIO
-    public function detalhes($id){
-        
-        $id = request('id'); // PARAMETRO URL
-
-        $funcionario = Funcionario::where([['id', '=', $id]])->first(); // PEGA OS DADOS DO FUCIONARIO
-
-        $funcionario->setor_id = $funcionario->setor->nome;  // SUBTITUI O ID PELO O NOME DO SETOR
-        $funcionario->cargo_id = $funcionario->cargo->nome;  // SUBTITUI O ID PELO O NOME DO CARGO
-        
-        return json_encode($funcionario); 
-
+        $funcaoSetor = $model->funcaoSetor($setor);
+        return json_encode($funcaoSetor);
     }
 
     // MEDOTO DE SALVA
-    public function store(Request $request){
-       
-        $funcionario = new Funcionario;
-        $funcionario->nome = $request->nome;
-        $funcionario->email = $request->email;
-        $funcionario->cpf = $request->cpf; 
-        $funcionario->status = 1; 
-        $funcionario->setor_id = $request->setor;
-        $funcionario->cargo_id = $request->cargo;
-        $funcionario->save();  // SALVA NO BD
-
-        return redirect('/funcionario/gerenciar')->with('msg', 'Funcionario salvo com sucesso!'); // REDIRECIONA PARA A HOME COM MSG
-
+    public function store(Request $request, FuncionarioRepository $model)
+    {
+        $data = $request->all();
+        $model->store($data);
+        return redirect('/funcionario/gerenciar')->with('msg', 'Funcionario salvo com sucesso!');
     }
 
-    // PASSA VALORES PARA EDIÇÃO NO FORMULARIO
-    public function edit($id){
+    // DETALHES DE FUNCIONARIO
+    public function detalhes($id, FuncionarioRepository $model)
+    {
+        $id = request('id'); // PARAMETRO URL
+        $funcionario = $model->detalhesFunc($id);
+        return json_encode($funcionario); 
+    }
 
-        $funcionario = Funcionario::find($id); // Recupera um modelo por sua chave primária 
+    // VALORES NO FORMULARIO
+    public function edit($id, FuncionarioRepository $model)
+    {
+        $funcionario = $model->getById($id);
 
         if(!$funcionario){  // CASO O ID NAO EXISTA
             return redirect('/funcionario/gerenciar'); 
         }
-
-        $setors = Setor::where([['status', '=', 1]])->orderBy('nome', 'ASC')->get(); // PEGA TODOS OS REGISTROS ATIVO DO BD DA TABELA SETOR
+        $setors = $model->setorAtivo();
 
         return view('funcionario.editar', ['funcionario' => $funcionario, 'setors' => $setors]); // PASSANDO AS VARIAVEIS
     }
 
     // METODO DE EDITAR
-    public function update(Request $request){
-        
+    public function update(Request $request, FuncionarioRepository $model)
+    {
         $data = $request->all();
-
-        $funcionario = Funcionario::findOrFail($request->id)->update($data); // ATUALIZA TODOS OS DADOS DO FUNCIONARIO (MODIFICAR NO MODEL TBÉM)
-
-        return redirect('/funcionario/gerenciar')->with('msg', 'Funcionario editado com sucesso!'); // REDIRECIONA PARA A LISTA COM MSG
-
+        $model->update($request->id, $data);
+        return redirect('/funcionario/gerenciar')->with('msg', 'Funcionario editado com sucesso!'); 
     }
 
     // PASSA VALORES PARA EDIÇÃO NO FORMULARIO
-    public function deletar($id){
-        
-        $funcionario = Funcionario::find($id); // Recupera um modelo por sua chave primária 
+    public function deletar($id, FuncionarioRepository $model)
+    {
+        $funcionario = $model->getById($id); 
 
         if(!$funcionario){  // CASO O ID NAO EXISTA
             return redirect('/funcionario/gerenciar'); 
         }
-
-        return view('funcionario.delete', ['funcionario' => $funcionario]); // PASSANDO AS VARIAVEIS
+        return view('funcionario.delete', ['funcionario' => $funcionario]); 
     }
 
-    // METODO DE 'DELETE LOGICO' DO FUNCIONARIO (MUDANDO O STATUS DO FUNCIONARIO)
-    public function delete(Request $request){
-        
-        $data = $request->all(); 
-
-        $funcionario = Funcionario::findOrFail($request->id)->update($data); // ATUALIZA TODOS OS DADOS DO FUNCIONARIO (MODIFICAR NO MODEL TBÉM)
-
-        return redirect('/funcionario/gerenciar')->with('msg', 'Funcionario removido com sucesso!'); // REDIRECIONA PARA A LISTA COM MSG
-
+    // METODO DE 'DELETE LOGICO' (STATUS = 0)
+    public function delete(Request $request, FuncionarioRepository $model)
+    {
+        $model->delete($request->id);
+        return redirect('/funcionario/gerenciar')->with('msg', 'Funcionario removido com sucesso!');
     }
   
 }

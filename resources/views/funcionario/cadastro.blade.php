@@ -30,7 +30,7 @@
     
             <div class="form-group">
                 <label for="setor">Setor Pertencente:</label>
-                <select name="setor" class="form-control" id="setor" onchange="cargos()" required>
+                <select name="setor_id" class="form-control" id="setor" onchange="cargos()" required>
                     <option value="">Selecione...</option> 
                     @foreach ($setors as $setor)
                         <option value="{{ $setor->id }}">{{ $setor->nome }}</option>
@@ -40,11 +40,12 @@
             <!-- O CARGO VEM VIA SCRIPT SE ACORDO COM O SETOR SELECIONADO (FIM DA PAGE) -->
             <div class="form-group">
                   <label for="cargo">Função:</label>
-                  <select id="cargo" name="cargo" class="form-control" required>
+                  <select id="cargo" name="cargo_id" class="form-control" required>
                     <option value="">Selecione...</option>
                 </select>
             </div>
     
+            <input type="hidden" name="status" value="1">
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
     </div>

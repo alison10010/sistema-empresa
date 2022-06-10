@@ -24,7 +24,8 @@
                 <textarea name="descricao" id="descricao" class="form-control" required></textarea>
             </div>
     
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <input type="hidden" name="status" value="1">
+            <button type="submit" class="btn btn-primary">Cadastrar</button> 
         </form>
     </div>
 

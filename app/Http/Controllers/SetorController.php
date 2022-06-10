@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // REGRAS DE VALIDACAO FORM
+
+use App\Repositories\Eloquent\SetorRepository;  // REGRAS DE NEGOCIOS
 
 use App\Models\Setor;
 
@@ -13,70 +15,52 @@ class SetorController extends Controller
     }
 
     // METODO DE LISTAR
-    public function gerenciar(){
-
-        $setors = Setor::where([['status', '=', 1]])->get(); // PEGA TODOS OS REGISTROS ATIVO DO BD DA TABELA SETOR
-
+    public function gerenciar(SetorRepository $model){
+        $setors = $model->listAtivos();
         return view('/setor/gerenciar',['setors' => $setors]);
     }
 
     // MEDOTO DE SALVA
-    public function store(Request $request){
-       
-        $setor = new Setor;
-        $setor->nome = $request->nome;
-        $setor->descricao = $request->descricao;
-        $setor->status = 1;
-        $setor->save();  // SALVA NO BD
-
-        return redirect('/setor/gerenciar')->with('msg', 'Setor criado com sucesso!'); // REDIRECIONA PARA A HOME COM MSG
-
+    public function store(Request $request, SetorRepository $model)
+    {  
+        $data = $request->all();
+        $model->store($data); // SALVA
+        return redirect('/setor/gerenciar')->with('msg', 'Setor criado com sucesso!');
     }
 
     // PASSA VALORES PARA EDIÇÃO NO FORMULARIO
-    public function edit($id){
-        
-        $setor = Setor::find($id); // Recupera a chave primary do model
-
+    public function edit($id, SetorRepository $model)
+    {
+        $setor = $model->getById($id);
         if(!$setor){  // CASO O ID NAO EXISTA
             return redirect('/setor/gerenciar'); 
         }
-
-        return view('setor.editar', ['setor' => $setor]); // PASSANDO AS VARIAVEIS
+        return view('setor.editar', ['setor' => $setor]); 
     }
 
     // METODO DE EDITAR
-    public function update(Request $request){
-        
+    public function update(Request $request, SetorRepository $model)
+    { 
         $data = $request->all();
-
-        $setor = Setor::findOrFail($request->id)->update($data); // ATUALIZA TODOS OS DADOS DO SETOR (MODIFICAR NO MODEL TBÉM)
-
-        return redirect('/setor/gerenciar')->with('msg', 'Setor editado com sucesso!'); // REDIRECIONA PARA A LISTA COM MSG
-
+        $model->update($request->id, $data);
+        return redirect('/setor/gerenciar')->with('msg', 'Setor editado com sucesso!');
     }
 
     // PASSA VALORES PARA EDIÇÃO NO FORMULARIO
-    public function deletar($id){
-        
-        $setor = Setor::find($id); // Recupera a chave primary do model
-
+    public function deletar($id, SetorRepository $model)
+    {    
+        $setor = $model->getById($id);; // Recupera a chave primary do mode
         if(!$setor){  // CASO O ID NAO EXISTA
             return redirect('/setor/gerenciar'); 
         }
-
-        return view('setor.delete', ['setor' => $setor]); // PASSANDO AS VARIAVEIS
+        return view('setor.delete', ['setor' => $setor]);
     }
 
-    // METODO DE 'DELETE LOGICO' DO SETOR (MUDANDO O STATUS DO SETOR)
-    public function delete(Request $request){
-        
-        $data = $request->all(); 
-
-        $setor = Setor::findOrFail($request->id)->update($data); // ATUALIZA TODOS OS DADOS DO SETOR (MODIFICAR NO MODEL TBÉM)
-
-        return redirect('/setor/gerenciar')->with('msg', 'Setor removido com sucesso!'); // REDIRECIONA PARA A LISTA COM MSG
-
+    // METODO DE 'DELETE LOGICO' (STATUS = 0)
+    public function delete(Request $request, SetorRepository $model)
+    {
+        $model->delete($request->id);
+        return redirect('/setor/gerenciar')->with('msg', 'Setor removido com sucesso!');
     }
 
 }

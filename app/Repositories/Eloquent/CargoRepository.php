@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 use App\Models\Cargo;
 
 use App\Models\Setor; // USA A TABLE SETOR PARA RELACIONAR AO CARGO
+
 
 class CargoRepository extends AbstractRepository{
 

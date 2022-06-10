@@ -70,7 +70,7 @@ Route::get('/', [PainelController::class, 'painel']);  // ROTA PRINCIPAL
 
 // REPOSITORY
 
-Route::get('cargo/index', [CargoController::class, 'index'])->name('cargo.index');
+Route::get('funcionario/{id}', [FuncionarioController::class, 'funcao']);
 
 });
 
