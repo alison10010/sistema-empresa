@@ -10,15 +10,22 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\SuperController;
 
-// USUARIO - START
-    Route::get('/user/gerenciar', [UserController::class, 'gerenciar'])->name('user.gerenciar');
 
-    Route::get('/user/cadastro', [UserController::class, 'create'])->name('user.create');
-    Route::post('/user/cadastro', [UserController::class, 'store'])->name('user.store');
+Route::get('/user/gerenciar', [UserController::class, 'gerenciar'])->name('user.gerenciar');
 
-    Route::get('/user/editar/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update'); 
-// USUARIO - END
+Route::get('/user/cadastro', [UserController::class, 'create'])->name('user.create');
+Route::post('/user/cadastro', [UserController::class, 'store'])->name('user.store');
+
+Route::get('/user/editar/{id}', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update'); 
+
+
+// ACESSO PROIBIDO APOS O LOGIN
+Route::middleware('guest')->group(function(){
+//  START
+});
+
+
 
 // NECESSARIO LOGIN PARA ACESSAR
 Route::middleware('auth')->group(function(){

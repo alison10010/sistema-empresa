@@ -19,14 +19,14 @@ class UserController extends Controller
     
 
     // SALVA USER NO BD
-    public function store(StoreUpdateUserForm $request){ // StoreUpdateUserForm valida os dados
+    public function store(StoreUpdateUserForm $request)  // StoreUpdateUserForm valida os dados
+    {
 
         $usuario = $request->all();
 
         $usuario['password'] = bcrypt($request->password); // SENHA ENCRYPYT
-
         User::create($usuario);  // CRIA UM NOVO USER 
-
+        
         return response()->json(["cadastro" => $usuario]); 
     }
 
