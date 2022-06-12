@@ -3,6 +3,13 @@
 
 @section('content') 
 
+    @if (session('status'))
+        <div class="alert alert-success" id="success-alert" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+                {{ session('status') }}
+        </div>
+    @endif
+
     <div style="padding: 10px 18px 2px;" class="text-gray-600">
         Esqueceu sua senha? Sem problemas. Basta nos informar seu endereço de e-mail e nós lhe enviaremos um link de redefinição de senha que permitirá que você escolha uma nova.
     </div>

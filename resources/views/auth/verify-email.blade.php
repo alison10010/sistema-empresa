@@ -3,15 +3,17 @@
 
 @section('content') 
 
+    @if (session('status') == 'verification-link-sent')
+        <div class="alert alert-success" id="success-alert" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            Um novo link de verificação foi enviado para o endereço de e-mail fornecido durante o registro."
+        </div>
+    @endif    
+
     <div style="padding: 10px 18px 2px;" class="text-gray-600">
         {{ __('Antes de começar, você poderia verificar seu endereço de e-mail clicando no link que acabamos de enviar para você? Se você não recebeu o e-mail, teremos o prazer de lhe enviar outro.') }}
     </div>
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('Um novo link de verificação foi enviado para o endereço de e-mail fornecido durante o registro.') }}
-        </div>
-    @endif
     <br />
     <div class="controls form-inline recupera-cadastra">
         <form action="{{ route('verification.send') }}" method="POST">
