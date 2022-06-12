@@ -28,4 +28,10 @@
     }   
 }
 
+.recupera-cadastra{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 /* FORMULARIO DE REGISTRO - FIM */

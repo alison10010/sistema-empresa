@@ -11,13 +11,11 @@ use App\Models\User;
 class UserController extends Controller
 {
 
-
     public function create()
     {
         return view('user.create'); 
     }
     
-
     // SALVA USER NO BD
     public function store(StoreUpdateUserForm $request)  // StoreUpdateUserForm valida os dados
     {

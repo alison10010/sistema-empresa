@@ -1,28 +1,27 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('auth.layout')  {{-- USA O LAYOUT PADRÃO --}}
+@section('title', 'Recuperar Senha')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@section('content') 
+
+    <div style="padding: 10px 18px 2px;" class="text-gray-600">
+        Esta é uma área segura do sistema. Por favor, confirme sua senha antes de continuar.
+    </div>
+
+    <form method="POST" action="{{ route('password.confirm') }}">
+        @csrf
+        <div class="card-body">
+        <!-- Password -->
+
+        <div class="form-group"> 
+            <label for="password">Senha</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Digite sua senha" required autofocus>
         </div>
 
-        <x-jet-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('password.confirm') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" autofocus />
+        <div class="card-footer">                
+            <div class="recupera-cadastra">
+                <button type="submit" class="btn btn-success">Prosseguir</button>
             </div>
+        </div>
+    </form>
 
-            <div class="flex justify-end mt-4">
-                <x-jet-button class="ml-4">
-                    {{ __('Confirm') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+@endsection  {{-- CONTEUDO DA PAGE - FIM --}}

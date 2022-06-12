@@ -24,12 +24,12 @@ class StoreUpdateUserForm extends FormRequest
         $rules = [
             'name' => 'required|string|max:100|min:3', 
             'email' => "required|email|unique:users,email,{$id},id", // O EMAIL PODE SER ALTERADO POR UM Q NAO EXITE OU MANTER O MESMO
-            'password' => ['required', 'min:6', 'max:15']
+            'password' => ['required', 'min:8', 'max:15']
         ];
 
         if($this->method('PUT')){  // SE FOR DO TIPO ( PUT ) MUDA AS REGRAS
             $rules['password'] = [
-                'password' => ['nullable', 'min:6', 'max:15']
+                'password' => ['nullable', 'min:8', 'max:15']
             ];
         }
         return $rules;

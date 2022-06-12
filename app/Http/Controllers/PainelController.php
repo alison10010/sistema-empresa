@@ -13,7 +13,7 @@ use App\Models\Funcionario;
 class PainelController extends Controller
 {
     // 
-    public function painel(){ 
+    public function painel(){
 
         $setors = Setor::where([['status', '=', 1]])->count();  // RETORNA QUANTIDADE DE SETOR CADASTRADO
         $cargos = Cargo::where([['status', '=', 1]])->count();  // RETORNA QUANTIDADE DE CARGO CADASTRADO
