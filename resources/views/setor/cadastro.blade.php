@@ -17,11 +17,11 @@
             @csrf {{-- NECESSARIO PARA REALIZAR O SALVAMENTO DO FORM NO BD --}}
             <div class="form-group">
                 <label for="nome">Nome do setor:</label>
-                <input type="txt" class="form-control" id="nome" name="nome" required>
+                <input type="txt" class="form-control" id="nome" name="nome" minlength="2" required> 
             </div>
             <div class="form-group">
                 <label for="descricaoSetor">Descricao do Setor:</label>
-                <textarea name="descricao" id="descricao" class="form-control" required></textarea>
+                <textarea name="descricao" id="descricao" class="form-control" minlength="6" required></textarea>
             </div>
     
             <input type="hidden" name="status" value="1">

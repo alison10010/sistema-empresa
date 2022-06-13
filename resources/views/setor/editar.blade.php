@@ -19,11 +19,11 @@
 
             <div class="form-group">
                 <label for="nome">Nome do setor:</label>
-                <input type="txt" class="form-control" id="nome" name="nome" value="{{$setor->nome}}" required>
+                <input type="txt" class="form-control" id="nome" name="nome" minlength="2" value="{{$setor->nome}}" required>
             </div>
             <div class="form-group">
                 <label for="descricaoSetor">Descrição do Setor:</label>
-                <textarea name="descricao" id="descricao" class="form-control">{{$setor->descricao}}</textarea>
+                <textarea name="descricao" id="descricao" minlength="6" class="form-control">{{$setor->descricao}}</textarea>
             </div>
             <a type="button" class="btn btn-danger btn-md" href="{{route('setor.gerenciar')}}">Cancelar</button></a> 
             <button type="submit" class="btn btn-primary">Finalizar</button>

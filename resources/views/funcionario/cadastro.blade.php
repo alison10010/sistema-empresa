@@ -17,15 +17,15 @@
             @csrf {{-- NECESSARIO PARA REALIZAR O SALVAMENTO DO FORM NO BD --}}
             <div class="form-group">
                 <label for="nome">Nome do Funcionario:</label>
-                <input type="txt" class="form-control" id="nome" name="nome" required>
+                <input type="txt" class="form-control" id="nome" name="nome" required value="{{ old('nome') }}">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" required value="{{ old('email') }}">
             </div>
             <div class="form-group">
                 <label for="cpf">CPF:</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" required>
+                <input type="number" class="form-control" id="cpf" name="cpf" maxlength="11" required value="{{ old('cpf') }}"> 
             </div> 
     
             <div class="form-group">

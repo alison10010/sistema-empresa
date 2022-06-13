@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request; // REGRAS DE VALIDACAO FORM
+use Illuminate\Http\Request; 
+
+use App\Http\Requests\ValidaCargoForm; // VALIDA OS CAMPOS DE CADASTRO E UPDADE DO CARGO
 
 use App\Repositories\Eloquent\CargoRepository;  // REGRAS DE NEGOCIOS
 
 use App\Models\Cargo;
-
+ 
 class CargoController extends Controller{
 
     // METODO DE LISTAR
@@ -24,10 +26,10 @@ class CargoController extends Controller{
         return view('cargo.cadastro',['setors' => $setors]); 
     }
 
-    // MEDOTO DE SALVA
-    public function store(Request $request, CargoRepository $model)
+    // MEDOTO DE SALVA 
+    public function store(ValidaCargoForm $request, CargoRepository $model) // StoreUpdateCargoForm valida os dados
     {
-        $data = $request->all();
+        $data = $request->all(); 
         $model->store($data); // SALVA
         return redirect()->route('cargo.gerenciar')->with('msg', 'Cargo criado com sucesso!');
     }
@@ -45,7 +47,7 @@ class CargoController extends Controller{
     }
 
     // METODO DE EDITAR
-    public function update(Request $request, CargoRepository $model)
+    public function update(ValidaCargoForm $request, CargoRepository $model)
     {
         $data = $request->all();
         $model->update($request->id, $data); // EDITA

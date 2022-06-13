@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Setor; // USA PARA RELACIONAR AO SETOR
+use App\Http\Requests\ValidaFuncionarioForm; // VALIDA OS CAMPOS DE CADASTRO E UPDADE DO FUNCIONARIO
+
+use App\Models\Setor; // USA PARA RELACIONAR AO SETOR 
 
 use App\Models\Cargo; // USA PARA RELACIONAR AO CARGO
 
@@ -37,7 +39,7 @@ class FuncionarioController extends Controller{
     }
 
     // MEDOTO DE SALVA
-    public function store(Request $request, FuncionarioRepository $model)
+    public function store(ValidaFuncionarioForm $request, FuncionarioRepository $model)
     {
         $data = $request->all();
         $model->store($data);
@@ -66,7 +68,7 @@ class FuncionarioController extends Controller{
     }
 
     // METODO DE EDITAR
-    public function update(Request $request, FuncionarioRepository $model)
+    public function update(ValidaFuncionarioForm $request, FuncionarioRepository $model)
     {
         $data = $request->all();
         $model->update($request->id, $data);

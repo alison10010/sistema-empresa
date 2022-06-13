@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request; // REGRAS DE VALIDACAO FORM
 
+use App\Http\Requests\ValidaSetorForm; // VALIDA OS CAMPOS DE CADASTRO E UPDADE DO SETOR
+
 use App\Repositories\Eloquent\SetorRepository;  // REGRAS DE NEGOCIOS
 
 use App\Models\Setor;
@@ -21,10 +23,10 @@ class SetorController extends Controller
     }
 
     // MEDOTO DE SALVA
-    public function store(Request $request, SetorRepository $model)
+    public function store(ValidaSetorForm $request, SetorRepository $model)
     {  
         $data = $request->all();
-        $model->store($data); // SALVA
+        $model->store($data); // SALVA 
         return redirect('/setor/gerenciar')->with('msg', 'Setor criado com sucesso!');
     }
 
@@ -39,7 +41,7 @@ class SetorController extends Controller
     }
 
     // METODO DE EDITAR
-    public function update(Request $request, SetorRepository $model)
+    public function update(ValidaSetorForm $request, SetorRepository $model)
     { 
         $data = $request->all();
         $model->update($request->id, $data);
