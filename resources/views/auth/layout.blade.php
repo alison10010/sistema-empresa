@@ -18,9 +18,6 @@
     <center><img src="https://logospng.org/download/laravel/logo-laravel-1024.png" style="max-width: 15%"></center>
     <div class="card card-primary desktop">
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
         @include('include/msgError')
 
         @yield('content') {{-- CONTEUDO DAS PAGINAS --}}

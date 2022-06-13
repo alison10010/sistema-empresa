@@ -4,9 +4,9 @@
 @section('content') 
 
     @if (session('status'))
-        <div class="alert alert-success" id="success-alert" role="alert">
+        <div class="alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
-                {{ session('status') }}
+            {{ session('status') }}
         </div>
     @endif
 
