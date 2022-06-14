@@ -112,8 +112,7 @@
                     <span>Usuarios</span>
                 </a>
                 <div id="collapseUser" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-transparent py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{route('user.create')}}">Cadastro</a>
+                    <div class="bg-transparent py-2 collapse-inner rounded">                        
                         <a class="collapse-item" href="{{route('user.gerenciar')}}">Gerenciar</a> 
                     </div>
                 </div>
