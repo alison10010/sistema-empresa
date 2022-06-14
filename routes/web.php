@@ -27,3 +27,8 @@ Route::middleware('auth')->group(function()
     });
 });
 
+// PAGINA NAO ENCONTRADA EM PRODUCAO APENAS
+Route::any('{url}', function(){ 
+    return view('/not-found');
+})->where( 'url','.*');
+
