@@ -1,5 +1,5 @@
 @extends('auth.layout')  {{-- USA O LAYOUT PADRÃO --}}
-@section('title', 'Recuperar Senha')
+@section('title', 'Verifique o Email')
 
 @section('content') 
 

@@ -7,7 +7,7 @@
 
     {{-- EDICAO DE USUAIO--}}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h3 class="h3 mb-0 text-gray-800">Edição do usuario: <b>{{ $usuario->name }}</b></h3>
+        <h3 class="h3 mb-0 text-gray-800">Edição do usuario</b></h3>
     </div> 
 
     @include('include/msgError')  {{-- MGS DE ERROR NOS FORMULARIOS DE VALIDACAO --}}

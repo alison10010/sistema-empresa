@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function()
     {
         Route::get('/', [PainelController::class, 'painel']);  // ROTA PRINCIPAL 
         
-        // ROTAS NA MESA PASTA
+        // ROTAS NA MESMA PASTA
         require __DIR__.'/usuario.php';
 
         require __DIR__.'/funcionario.php';

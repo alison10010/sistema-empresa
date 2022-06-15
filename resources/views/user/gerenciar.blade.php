@@ -19,25 +19,25 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th scope="col" style="width: 23%">Nome</th>
-                            <th scope="col" style="width: 10%">Email</th>
-                            <th style="width: 15%"><center>Ações <i class="fa fa-cogs fa-1.5x fa-fw" aria-hidden="true"></i></center></th>
+                            <th scope="col" style="width: 25%">Nome</th>
+                            <th scope="col" style="width: 25%">Email</th>
+                            <th scope="col" style="width: 20%">Criado</th>
+                            <th scope="col" style="width: 15%">Email verificado</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($usuarios as $usuario)
                             <tr>                             
-                                <td>{{ $usuario->name }}</td> 
+                                <td>{{ $usuario->name }}</td>
                                 <td>{{ $usuario->email }}</td>
+                                <td>{{ $usuario->created_at->format('d/m/Y H:i:s') }}</td>
                                 <td>
-                                    <center>
-                                    <a class="btn btn-info btn-circle" href="{{route('user.edit', $usuario->id)}}">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></ion-icon>
-                                    </a>
-                                    &nbsp;
-
-                                </center>
+                                    @if($usuario->email_verified_at)
+                                        <label style="color: green">Verificado</label>
+                                    @else
+                                        <label style="color: red">Pendente</label>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
