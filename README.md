@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -20,7 +19,6 @@ Um CRUD com relacionamento entre tabelas [Demo](link).
 
 ## Funcionalidade
 
-- [Demo do sistema](link).
 - CADASTRO DE SETOR
 - CADASTRO DE CARGO EM UM SETOR EXISTENTE
 - CADASTRO DE FUNCIONARIO (Relacionado-o em um setor e o cargo de acordo com o setor selecionado)
@@ -31,7 +29,4 @@ Um CRUD com relacionamento entre tabelas [Demo](link).
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# sistema-empresa
-Utilizando os recursos do laravel
->>>>>>> 4008d87b2c8e00d2377e78a0c9b284539b448bcc
+
